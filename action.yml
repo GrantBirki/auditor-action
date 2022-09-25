@@ -1,0 +1,37 @@
+name: "auditor-action"
+description: "The Auditor"
+author: "Grant Birkinbine"
+
+inputs:
+  config:
+    description: The path to the auditor's config file
+    default: auditor.yml
+    required: true
+
+branding:
+  icon: "lock"
+  color: "gray-dark"
+
+runs:
+  using: "composite"
+  steps:
+    - name: checkout
+      uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # pin@v3.0.2
+      with:
+        fetch-depth: 0 # needed to checkout all branches
+
+    - name: git-diff-action
+      uses: GrantBirki/git-diff-action@v1.1.0
+      id: git-diff-action
+      with:
+        json_diff_file_output: git-diff-action-output.json
+
+    - name: auditor-action
+      uses: GrantBirki/auditor-action-core@main
+      env:
+        CONFIG_PATH: ${{ inputs.config }}
+        JSON_DIFF_PATH: git-diff-action-output.json
+
+    - name: cleanup
+      run: rm git-diff-action-output.json
+      shell: bash
