@@ -57,20 +57,22 @@ jobs:
 
 ## Inputs 📥
 
-Rather than using Actions inputs, this Action component uses environment variables for configuration to make local testing easier
+These are the inputs that the Action accepts in its workflow file:
 
 | Name | Required? | Default | Description |
 | --- | --- | --- | --- |
 | `config` | yes | `auditor.yml` | The path to the [`auditor.yml`](#configuration-) configuration file |
 | `json_diff_path` | yes | `git-diff-action-output.json` | The path to the JSON diff file to load (provided for you) |
-| `alert_level` | yes | `fail` | The alert level to use when reporting violations. Can be `fail` or `warn` |
-| `comment_on_pr` | yes | `true` | Whether or not to comment on the PR. Can be `true` or `false` |
+
+> Please note that most of the configuration for this action takes place in the `auditor.yml` file which is described below
 
 ## Configuration 📝
 
 The following is an example of an `auditor.yml` configuration file will all available options:
 
 ### Configuration Options
+
+Below is a list of all the configuration options that are available:
 
 ```yaml
 # rules is an array of auditor 'rules' that will be used to detect violations
@@ -79,10 +81,20 @@ rules: # array of rules
     type: <string-exact|string-case-insensitive|regex> # the type of rule
     pattern: <string> # the matching pattern to use
     message: <string> # the message to display if a match is found
+    include_regex: # array of regex patterns for files to include in the rule (optional)
+      - <string>
+    exclude_regex: # array of regex patterns for files to exclude from the rule (optional)
+      - <string>
 
 # global configuration options
 global_options:
+  alert_level: <fail|warn> # whether to fail or warn on violations - defaul is 'fail'
+  comment_on_pr: <boolean> # whether to comment on the PR with violation results - default is true
   exclude_auditor_config: <boolean> # exclude the auditor config file from the audit (this file) - default is true
+  labels: # array of labels to apply to the PR if a violation is found - comment out to disable (optional)
+    - <string>
+    - <string> # (can have multiple labels)
+    - <string> # ... (do as many as you want!)
   exclude_regex: # array of regex patterns to exclude files from the audit globally
    - <string> # the regex pattern to exclude
    - <string> # the regex pattern to exclude (can have multiple)
@@ -100,6 +112,10 @@ rules:
     type: string-exact # an exact string match - case sensitive
     pattern: "user root" # the string to match on
     message: root user detected - this is not allowed, please try again # the message to display if a match is found
+    include_regex: # a regex to match the file path against - if it matches, the rule will be applied
+      - "^.*\\.txt$"
+    exclude_regex: # a regex to match the file path against - if it matches, the rule will not be applied
+      - "^.*\\.log$"
 
   - name: "Root User Detected - Case Insensitive"
     type: string-case-insensitive # a case insensitive string match
@@ -118,10 +134,26 @@ rules:
 
 # global configuration options
 global_options:
+  alert_level: fail # whether to fail or warn the Actions workflow if a violation is found - default is fail
+  comment_on_pr: true # whether to comment on the PR with the violations found - default is true
   # exclude_auditor_config: false # exclude the auditor config file from the audit (this file) - default is true
+  labels: # the labels to apply to the PR if a violation is found - comment out to disable
+    - alert
   exclude_regex: # list of regex patterns to exclude files from the audit globally
    - "\\.md$"
 ```
+
+### Include and Exclude Regex (Order of Operations)
+
+The order of operations is important if you are going to use `include_regex` or `exclude_regex` options. The order of operations is as follows:
+
+1. `global_options.exclude_regex` is checked first. If any file path matches the provided regex, all violations will be ignored for that file
+2. Individual rule `exclude_regex` patterns are checked next. If any regex pattern matches the file path, the rule will be ignored for that file
+3. Individual rule `include_regex` patterns are checked next. If any regex pattern matches the file path, the rule will be applied to that file. If the include rule does not match, then the file is skipped
+
+- If the `global_options.exclude_regex` option is not used, then it assumes all files are included for scanning globally and designates pattern matching to the individual rules
+- If the individual rule's `exclude_regex` option is not used, then it assumes no files will be explicitly excluded for that rule
+- If the individual rule's `include_regex` option is not used, then it assumes all files are included for scanning for that rule
 
 ### Example Screenshot 📸
 

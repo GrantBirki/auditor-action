@@ -7,17 +7,9 @@ inputs:
     description: The path to the auditor's config file
     default: auditor.yml
     required: true
-  json_diff_path: 
+  json_diff_path:
     description: The path to the json diff file
     default: git-diff-action-output.json
-    required: true
-  alert_level:
-    description: The alert level to use
-    default: "fail"
-    required: true
-  comment_on_pr:
-    description: Whether to comment on the PR
-    default: "true"
     required: true
 
 branding:
@@ -39,12 +31,10 @@ runs:
         json_diff_file_output: ${{ inputs.json_diff_path }}
 
     - name: auditor-action
-      uses: GrantBirki/auditor-action-core@f6132ae3eebbb5c00f28dd6789cca4a68ea6a9c2 # pin@v1.0.0
+      uses: GrantBirki/auditor-action-core@1942b68ffed690e568c69726528b189f32a235c3 # pin@v2.0.0
       env:
         CONFIG_PATH: ${{ inputs.config }}
         JSON_DIFF_PATH: ${{ inputs.json_diff_path }}
-        ALERT_LEVEL: ${{ inputs.alert_level }}
-        COMMENT_ON_PR: ${{ inputs.comment_on_pr }}
 
     - name: cleanup
       env:
