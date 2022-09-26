@@ -28,6 +28,33 @@ The composite Action will either pass or fail based on the inputs you provide it
 
 > It should be noted that this Action **only** works for pull requests. It will not work properly in any other Actions context
 
+## Usage 🚀
+
+Below is a sample Actions workflow that uses **The Auditor**:
+
+> `vX.X.X` is the version of the Action you want to use. Please see the releases page for the latest version
+
+```yaml
+name: the-auditor
+
+# run on all pull requests
+on:
+  pull_request:
+
+permissions:
+  contents: read # needed to view the config file and the git diff
+  pull-requests: write # needed to publish a comment on pull requests
+
+jobs:
+  the-auditor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: auditor-action
+        uses: GrantBirki/auditor-action@vX.X.X
+        with:
+          config: config/auditor.yml # path to your 'auditor.yml' config file in your repository
+```
+
 ## Inputs 📥
 
 Rather than using Actions inputs, this Action component uses environment variables for configuration to make local testing easier
@@ -37,7 +64,7 @@ Rather than using Actions inputs, this Action component uses environment variabl
 | `config` | yes | `auditor.yml` | The path to the [`auditor.yml`](#configuration-) configuration file |
 | `json_diff_path` | yes | `git-diff-action-output.json` | The path to the JSON diff file to load (provided for you) |
 | `alert_level` | yes | `fail` | The alert level to use when reporting violations. Can be `fail` or `warn` |
-| `COMMENT_ON_PR` | yes | `true` | Whether or not to comment on the PR. Can be `true` or `false` |
+| `comment_on_pr` | yes | `true` | Whether or not to comment on the PR. Can be `true` or `false` |
 
 ## Configuration 📝
 
@@ -95,3 +122,9 @@ global_options:
   exclude_regex: # list of regex patterns to exclude files from the audit globally
    - "\\.md$"
 ```
+
+### Example Screenshot 📸
+
+Below is an example screenshot of what a violation comment might look like:
+
+![example](docs/assets/example.png)
