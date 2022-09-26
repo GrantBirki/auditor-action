@@ -31,7 +31,7 @@ runs:
         json_diff_file_output: ${{ inputs.json_diff_path }}
 
     - name: auditor-action
-      uses: GrantBirki/auditor-action-core@1942b68ffed690e568c69726528b189f32a235c3 # pin@v2.0.0
+      uses: GrantBirki/auditor-action-core@96c506daddbab269f41d132dfbb1b50465cda06f # pin@v2.0.1
       env:
         CONFIG_PATH: ${{ inputs.config }}
         JSON_DIFF_PATH: ${{ inputs.json_diff_path }}
