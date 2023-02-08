@@ -88,7 +88,7 @@ rules: # array of rules
 
 # global configuration options
 global_options:
-  alert_level: <fail|warn> # whether to fail or warn on violations - defaul is 'fail'
+  alert_level: <fail|warn> # whether to fail or warn on violations - default is 'fail'
   comment_on_pr: <boolean> # whether to comment on the PR with violation results - default is true
   exclude_auditor_config: <boolean> # exclude the auditor config file from the audit (this file) - default is true
   labels: # array of labels to apply to the PR if a violation is found - comment out to disable (optional)
