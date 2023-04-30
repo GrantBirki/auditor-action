@@ -20,18 +20,18 @@ runs:
   using: "composite"
   steps:
     - name: checkout
-      uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # pin@v3.3.0
+      uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # pin@v3.5.2
       with:
         fetch-depth: 0 # needed to checkout all branches
 
     - name: git-diff-action
-      uses: GrantBirki/git-diff-action@cca15618df9693dd4e31073588d0af78699e27c9 # pin@v1.1.2
+      uses: GrantBirki/git-diff-action@b27852c0d000070b2238db042ecd6fa1fa49e08f # pin@v2.0.1
       id: git-diff-action
       with:
         json_diff_file_output: ${{ inputs.json_diff_path }}
 
     - name: auditor-action
-      uses: GrantBirki/auditor-action-core@c44088ef2b60dbb91ebfc20902148d48c025622e # pin@v2.0.3
+      uses: GrantBirki/auditor-action-core@da9a47f6f87ec1369af15b72fe8bda69c9cb979b # pin@v2.0.4
       env:
         CONFIG_PATH: ${{ inputs.config }}
         JSON_DIFF_PATH: ${{ inputs.json_diff_path }}
