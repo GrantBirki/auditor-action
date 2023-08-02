@@ -20,7 +20,7 @@ runs:
   using: "composite"
   steps:
     - name: checkout
-      uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # pin@v3.5.2
+      uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # pin@v3.5.3
       with:
         fetch-depth: 0 # needed to checkout all branches
 
@@ -31,7 +31,7 @@ runs:
         json_diff_file_output: ${{ inputs.json_diff_path }}
 
     - name: auditor-action
-      uses: GrantBirki/auditor-action-core@da9a47f6f87ec1369af15b72fe8bda69c9cb979b # pin@v2.0.4
+      uses: GrantBirki/auditor-action-core@4eff4a076189632d59b83141f655791255b1d6be # pin@v2.0.5
       env:
         CONFIG_PATH: ${{ inputs.config }}
         JSON_DIFF_PATH: ${{ inputs.json_diff_path }}
