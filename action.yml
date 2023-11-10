@@ -20,12 +20,12 @@ runs:
   using: "composite"
   steps:
     - name: checkout
-      uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # pin@v4.0.0
+      uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # pin@v4
       with:
         fetch-depth: 0 # needed to checkout all branches
 
     - name: git-diff-action
-      uses: GrantBirki/git-diff-action@8760bfd6174f5346d875d9b63ee898e0adb25c72 # pin@v2.1.1
+      uses: GrantBirki/git-diff-action@3d5d323f899c22de8d95a9e05c4f71cc7f165404 # pin@v2.2.0
       id: git-diff-action
       with:
         json_diff_file_output: ${{ inputs.json_diff_path }}
