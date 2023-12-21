@@ -32,7 +32,7 @@ runs:
         base_branch: HEAD^1 # compare the PR merge commit against its first parent
         file_output_only: "true" # do not print any diff output to the console (safety first)
         search_path: '.' # look in the entire repo for changes
-        max_buffer_size: "1000000" # the default git diff buffer size, increase if you have issues
+        max_buffer_size: "10000000" # the default git diff buffer size, increase if you have issues
 
     - name: auditor-action
       uses: GrantBirki/auditor-action-core@d20693663049b7fee4a0f6e2b3123643e2e8941e # pin@v2.2.0
