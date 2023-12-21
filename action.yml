@@ -35,7 +35,7 @@ runs:
         max_buffer_size: "1000000" # the default git diff buffer size, increase if you have issues
 
     - name: auditor-action
-      uses: GrantBirki/auditor-action-core@eb5403c2dcea95ba9b6760265f2c098735345136 # pin@v2.1.0
+      uses: GrantBirki/auditor-action-core@fixes-and-logging
       env:
         CONFIG_PATH: ${{ inputs.config }}
         JSON_DIFF_PATH: ${{ inputs.json_diff_path }}
