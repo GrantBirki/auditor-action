@@ -25,7 +25,7 @@ runs:
         fetch-depth: 0 # needed to checkout all branches
 
     - name: git-diff-action
-      uses: GrantBirki/git-diff-action@3d5d323f899c22de8d95a9e05c4f71cc7f165404 # pin@v2.2.0
+      uses: GrantBirki/git-diff-action@b4b60819c4e5d05f420f600e6497cd7a4f96d53f # pin@v2.4.0
       id: git-diff-action
       with:
         json_diff_file_output: ${{ inputs.json_diff_path }}
@@ -35,7 +35,7 @@ runs:
         max_buffer_size: "1000000" # the default git diff buffer size, increase if you have issues
 
     - name: auditor-action
-      uses: GrantBirki/auditor-action-core@fixes-and-logging
+      uses: GrantBirki/auditor-action-core@d20693663049b7fee4a0f6e2b3123643e2e8941e # pin@v2.2.0
       env:
         CONFIG_PATH: ${{ inputs.config }}
         JSON_DIFF_PATH: ${{ inputs.json_diff_path }}
