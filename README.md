@@ -63,6 +63,7 @@ These are the inputs that the Action accepts in its workflow file:
 | --- | --- | --- | --- |
 | `config` | yes | `auditor.yml` | The path to the [`auditor.yml`](#configuration-) configuration file |
 | `json_diff_path` | yes | `git-diff-action-output.json` | The path to the JSON diff file to load (provided for you out of the box) |
+| `annotate_pr` | yes | `"false"` | Whether to annotate the PR with the audit results or not |
 
 > Please note that most of the configuration for this action takes place in the `auditor.yml` file which is described below
 
