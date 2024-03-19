@@ -39,7 +39,7 @@ runs:
         max_buffer_size: "10000000" # the default git diff buffer size, increase if you have issues
 
     - name: auditor-action
-      uses: GrantBirki/auditor-action-core@0ac2a595ea58643739dbc6e6a465612ff32119eb # pin@v2.3.2
+      uses: GrantBirki/auditor-action-core@b2bf6ef6c5d36044d08400ff04c61f8cc3d19766 # pin@v2.3.3
       with:
         annotate_pr: ${{ inputs.annotate_pr }}
       env:
