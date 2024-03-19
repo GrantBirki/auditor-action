@@ -11,6 +11,10 @@ inputs:
     description: The path to the json diff file
     default: git-diff-action-output.json
     required: true
+  annotate_pr:
+    description: Annotate the PR with the audit results
+    default: "false"
+    required: true
 
 branding:
   icon: "lock"
@@ -20,12 +24,12 @@ runs:
   using: "composite"
   steps:
     - name: checkout
-      uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # pin@v4
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0 # needed to checkout all branches
 
     - name: git-diff-action
-      uses: GrantBirki/git-diff-action@b4b60819c4e5d05f420f600e6497cd7a4f96d53f # pin@v2.4.0
+      uses: GrantBirki/git-diff-action@v2.6.0
       id: git-diff-action
       with:
         json_diff_file_output: ${{ inputs.json_diff_path }}
@@ -35,7 +39,9 @@ runs:
         max_buffer_size: "10000000" # the default git diff buffer size, increase if you have issues
 
     - name: auditor-action
-      uses: GrantBirki/auditor-action-core@d20693663049b7fee4a0f6e2b3123643e2e8941e # pin@v2.2.0
+      uses: GrantBirki/auditor-action-core@v2.3.0
+      with:
+        annotate_pr: ${{ inputs.annotate_pr }}
       env:
         CONFIG_PATH: ${{ inputs.config }}
         JSON_DIFF_PATH: ${{ inputs.json_diff_path }}
