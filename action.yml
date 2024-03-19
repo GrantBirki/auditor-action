@@ -24,12 +24,12 @@ runs:
   using: "composite"
   steps:
     - name: checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # pin@v4
       with:
         fetch-depth: 0 # needed to checkout all branches
 
     - name: git-diff-action
-      uses: GrantBirki/git-diff-action@v2.6.0
+      uses: GrantBirki/git-diff-action@f9084974667db3cecc39baa7d09f0c95656f77b2 # pin@v2.6.0
       id: git-diff-action
       with:
         json_diff_file_output: ${{ inputs.json_diff_path }}
@@ -39,7 +39,7 @@ runs:
         max_buffer_size: "10000000" # the default git diff buffer size, increase if you have issues
 
     - name: auditor-action
-      uses: GrantBirki/auditor-action-core@v2.3.0
+      uses: GrantBirki/auditor-action-core@2e43ff8328268f002f83bb3de0d0f66b6fce90b4 # pin@v2.3.0
       with:
         annotate_pr: ${{ inputs.annotate_pr }}
       env:
