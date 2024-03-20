@@ -11,7 +11,7 @@ inputs:
     required: true
   config:
     description: The path to the auditor's config file
-    default: auditor.yml
+    default: config/auditor.yml
     required: true
   json_diff_path:
     description: The path to the json diff file
