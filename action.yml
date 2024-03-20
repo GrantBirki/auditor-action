@@ -11,15 +11,52 @@ inputs:
     required: true
   config:
     description: The path to the auditor's config file
-    default: auditor.yml
+    default: config/auditor.yml
     required: true
   json_diff_path:
     description: The path to the json diff file
-    default: git-diff-action-output.json
+    default: diff.json
+    required: true
+  github_base_url:
+    description: 'The base URL for the GitHub instance you are using'
+    default: 'https://github.com'
     required: true
   annotate_pr:
     description: Annotate the PR with the audit results
-    default: "false"
+    default: "true"
+    required: true
+  annotate_name:
+    description: 'The name of the annotation to name to use'
+    default: 'The Auditor'
+    required: true
+  annotate_title:
+    description: 'The title of the annotation to use'
+    default: 'The Auditor has detected findings in your pull request'
+    required: true
+  annotate_summary:
+    description: 'The summary of the annotation to use'
+    default: 'Please review the findings and make any necessary changes'
+    required: true
+  annotate_status:
+    description: 'The status of the annotation to use'
+    default: 'completed'
+    required: true
+  # git diff action specific below
+  base_branch:
+    description: 'The base branch to compare the PR against'
+    default: HEAD^1 # compare the PR merge commit against its first parent
+    required: true
+  file_output_only:
+    description: 'Only output the diff to the json file'
+    default: "true" # do not print any diff output to the console (safety first)
+    required: true
+  search_path:
+    description: 'The path to search for changes'
+    default: '.' # look in the entire repo for changes
+    required: true
+  max_buffer_size:
+    description: 'The maximum buffer size for the git diff command'
+    default: "10000000" # the default git diff buffer size, increase if you have issues
     required: true
 
 branding:
@@ -39,19 +76,23 @@ runs:
       id: git-diff-action
       with:
         json_diff_file_output: ${{ inputs.json_diff_path }}
-        base_branch: HEAD^1 # compare the PR merge commit against its first parent
-        file_output_only: "true" # do not print any diff output to the console (safety first)
-        search_path: '.' # look in the entire repo for changes
-        max_buffer_size: "10000000" # the default git diff buffer size, increase if you have issues
+        base_branch: ${{ inputs.base_branch }}
+        file_output_only: ${{ inputs.file_output_only }}
+        search_path: ${{ inputs.search_path }}
+        max_buffer_size: ${{ inputs.max_buffer_size }}
 
     - name: auditor-action
-      uses: GrantBirki/auditor-action-core@450d15ed6ba5e667bc8b0c1983fe5b01265fa46d # pin@v2.3.6
+      uses: GrantBirki/auditor-action-core@dc49831af3bf3b0d3ab12005954af9aae43bf124 # pin@v3.0.1
       with:
         github_token: ${{ inputs.github_token }}
         annotate_pr: ${{ inputs.annotate_pr }}
-      env:
-        CONFIG_PATH: ${{ inputs.config }}
-        JSON_DIFF_PATH: ${{ inputs.json_diff_path }}
+        config_path: ${{ inputs.config }}
+        json_diff_path: ${{ inputs.json_diff_path }}
+        github_base_url: ${{ inputs.github_base_url }}
+        annotate_name: ${{ inputs.annotate_name }}
+        annotate_title: ${{ inputs.annotate_title }}
+        annotate_summary: ${{ inputs.annotate_summary }}
+        annotate_status: ${{ inputs.annotate_status }}
 
     - name: cleanup
       env:

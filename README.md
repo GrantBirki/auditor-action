@@ -44,6 +44,7 @@ on:
 permissions:
   contents: read # needed to view the config file and the git diff
   pull-requests: write # needed to publish a comment on pull requests
+  checks: write # needed to publish annotations on the pull request files tab
 
 jobs:
   the-auditor:
@@ -61,11 +62,16 @@ These are the inputs that the Action accepts in its workflow file:
 
 | Name | Required? | Default | Description |
 | --- | --- | --- | --- |
-| `config` | yes | `auditor.yml` | The path to the [`auditor.yml`](#configuration-) configuration file |
-| `json_diff_path` | yes | `git-diff-action-output.json` | The path to the JSON diff file to load (provided for you out of the box) |
-| `annotate_pr` | yes | `"false"` | Whether to annotate the PR with the audit results or not |
+| `config` | yes | `config/auditor.yml` | The path to the [`auditor.yml`](#configuration-) configuration file |
+| `json_diff_path` | yes | `diff.json` | The path to the JSON diff file to load (provided for you out of the box) |
+| `github_base_url` | yes | `https://github.com` | The base URL for the GitHub instance you are using |
+| `annotate_pr` | yes | `"true"` | Whether to annotate the PR with the audit results or not |
+| `annotate_name` | yes | `The Auditor` | The name of the annotation to name to use |
+| `annotate_title` | yes | `The Auditor has detected findings in your pull request` | The title of the annotation to use |
+| `annotate_summary` | yes | `Please review the findings and make any necessary changes` | The summary of the annotation to use |
+| `annotate_status` | yes | `completed` | The status of the annotation to use |
 
-> Please note that most of the configuration for this action takes place in the `auditor.yml` file which is described below
+> Please note that most of the configuration for this action takes place in the `auditor.yml` file which is described below. For `git-diff-action` specific configuration, please view the [`action.yml`](action.yml) file directly.
 
 ## Configuration 📝
 
@@ -161,3 +167,7 @@ The order of operations is important if you are going to use `include_regex` or 
 Below is an example screenshot of what a violation comment might look like:
 
 ![example](docs/assets/example.png)
+
+And here is an example of what the annotations might look like on the pull request:
+
+![annotations](docs/assets/annotations.png)
