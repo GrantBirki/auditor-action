@@ -45,6 +45,7 @@ permissions:
   contents: read # needed to view the config file and the git diff
   pull-requests: write # needed to publish a comment on pull requests
   checks: write # needed to publish annotations on the pull request files tab
+  actions: read # also needed to publish annotations on the pull request files tab
 
 jobs:
   the-auditor:
