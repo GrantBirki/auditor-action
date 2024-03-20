@@ -41,6 +41,11 @@ inputs:
     description: 'The status of the annotation to use'
     default: 'completed'
     required: true
+  write_results_path:
+    description: 'The path to write the markdown results to (for custom reporting) -
+      Leave unset to disable writing results to a file'
+    default: ''
+    required: true
   # git diff action specific below
   base_branch:
     description: 'The base branch to compare the PR against'
@@ -82,7 +87,7 @@ runs:
         max_buffer_size: ${{ inputs.max_buffer_size }}
 
     - name: auditor-action
-      uses: GrantBirki/auditor-action-core@d247512c32c68192ba23796edeaaa626806cc120 # pin@v3.0.1
+      uses: GrantBirki/auditor-action-core@4d6e777d66cd3c8c7479b435d68a6f66a17d6a5f # pin@v3.1.0
       with:
         github_token: ${{ inputs.github_token }}
         annotate_pr: ${{ inputs.annotate_pr }}
@@ -93,6 +98,7 @@ runs:
         annotate_title: ${{ inputs.annotate_title }}
         annotate_summary: ${{ inputs.annotate_summary }}
         annotate_status: ${{ inputs.annotate_status }}
+        write_results_path: $ {{ inputs.write_results_path }}
 
     - name: cleanup
       env:
