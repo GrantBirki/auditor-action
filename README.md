@@ -162,3 +162,7 @@ The order of operations is important if you are going to use `include_regex` or 
 Below is an example screenshot of what a violation comment might look like:
 
 ![example](docs/assets/example.png)
+
+And here is an example of what the annotations might look like on the pull request:
+
+![annotations](docs/assets/annotations.png)
