@@ -3,6 +3,10 @@ description: "The Auditor"
 author: "Grant Birkinbine"
 
 inputs:
+  github_token:
+    description: 'The GitHub token used to create an authenticated client - Provided for you by default! If you are using annotations on pull requests, you may need to use a GitHub App token with checks:write permissions instead'
+    default: ${{ github.token }}
+    required: true
   config:
     description: The path to the auditor's config file
     default: auditor.yml
@@ -41,6 +45,7 @@ runs:
     - name: auditor-action
       uses: GrantBirki/auditor-action-core@a2b7cb8926f827391239733a170e2473977bbbf2 # pin@v2.3.4
       with:
+        github_token: ${{ inputs.github_token }}
         annotate_pr: ${{ inputs.annotate_pr }}
       env:
         CONFIG_PATH: ${{ inputs.config }}
