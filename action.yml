@@ -17,9 +17,29 @@ inputs:
     description: The path to the json diff file
     default: diff.json
     required: true
+  github_base_url:
+    description: 'The base URL for the GitHub instance you are using'
+    default: 'https://github.com'
+    required: true
   annotate_pr:
     description: Annotate the PR with the audit results
     default: "true"
+    required: true
+  annotate_name:
+    description: 'The name of the annotation to name to use'
+    default: 'The Auditor'
+    required: true
+  annotate_title:
+    description: 'The title of the annotation to use'
+    default: 'The Auditor has detected findings in your pull request'
+    required: true
+  annotate_summary:
+    description: 'The summary of the annotation to use'
+    default: 'Please review the findings and make any necessary changes'
+    required: true
+  annotate_status:
+    description: 'The status of the annotation to use'
+    default: 'completed'
     required: true
 
 branding:
@@ -51,6 +71,11 @@ runs:
         annotate_pr: ${{ inputs.annotate_pr }}
         config_path: ${{ inputs.config }}
         json_diff_path: ${{ inputs.json_diff_path }}
+        github_base_url: ${{ inputs.github_base_url }}
+        annotate_name: ${{ inputs.annotate_name }}
+        annotate_title: ${{ inputs.annotate_title }}
+        annotate_summary: ${{ inputs.annotate_summary }}
+        annotate_status: ${{ inputs.annotate_status }}
 
     - name: cleanup
       env:

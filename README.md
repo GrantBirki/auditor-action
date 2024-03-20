@@ -64,7 +64,12 @@ These are the inputs that the Action accepts in its workflow file:
 | --- | --- | --- | --- |
 | `config` | yes | `config/auditor.yml` | The path to the [`auditor.yml`](#configuration-) configuration file |
 | `json_diff_path` | yes | `diff.json` | The path to the JSON diff file to load (provided for you out of the box) |
+| `github_base_url` | yes | `https://github.com` | The base URL for the GitHub instance you are using |
 | `annotate_pr` | yes | `"true"` | Whether to annotate the PR with the audit results or not |
+| `annotate_name` | yes | `The Auditor` | The name of the annotation to name to use |
+| `annotate_title` | yes | `The Auditor has detected findings in your pull request` | The title of the annotation to use |
+| `annotate_summary` | yes | `Please review the findings and make any necessary changes` | The summary of the annotation to use |
+| `annotate_status` | yes | `completed` | The status of the annotation to use |
 
 > Please note that most of the configuration for this action takes place in the `auditor.yml` file which is described below
 
