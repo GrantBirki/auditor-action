@@ -15,11 +15,11 @@ inputs:
     required: true
   json_diff_path:
     description: The path to the json diff file
-    default: git-diff-action-output.json
+    default: diff.json
     required: true
   annotate_pr:
     description: Annotate the PR with the audit results
-    default: "false"
+    default: "true"
     required: true
 
 branding:
@@ -45,13 +45,12 @@ runs:
         max_buffer_size: "10000000" # the default git diff buffer size, increase if you have issues
 
     - name: auditor-action
-      uses: GrantBirki/auditor-action-core@450d15ed6ba5e667bc8b0c1983fe5b01265fa46d # pin@v2.3.6
+      uses: GrantBirki/auditor-action-core@a5bc8211a5aeda51a3bba4baa858628d0941ad25 # pin@v3.0.0
       with:
         github_token: ${{ inputs.github_token }}
         annotate_pr: ${{ inputs.annotate_pr }}
-      env:
-        CONFIG_PATH: ${{ inputs.config }}
-        JSON_DIFF_PATH: ${{ inputs.json_diff_path }}
+        config_path: ${{ inputs.config }}
+        json_diff_path: ${{ inputs.json_diff_path }}
 
     - name: cleanup
       env:
