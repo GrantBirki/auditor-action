@@ -71,7 +71,7 @@ These are the inputs that the Action accepts in its workflow file:
 | `annotate_summary` | yes | `Please review the findings and make any necessary changes` | The summary of the annotation to use |
 | `annotate_status` | yes | `completed` | The status of the annotation to use |
 
-> Please note that most of the configuration for this action takes place in the `auditor.yml` file which is described below
+> Please note that most of the configuration for this action takes place in the `auditor.yml` file which is described below. For `git-diff-action` specific configuration, please view the [`action.yml`](action.yml) file directly.
 
 ## Configuration 📝
 

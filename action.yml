@@ -41,6 +41,23 @@ inputs:
     description: 'The status of the annotation to use'
     default: 'completed'
     required: true
+  # git diff action specific below
+  base_branch:
+    description: 'The base branch to compare the PR against'
+    default: HEAD^1 # compare the PR merge commit against its first parent
+    required: true
+  file_output_only:
+    description: 'Only output the diff to the json file'
+    default: "true" # do not print any diff output to the console (safety first)
+    required: true
+  search_path:
+    description: 'The path to search for changes'
+    default: '.' # look in the entire repo for changes
+    required: true
+  max_buffer_size:
+    description: 'The maximum buffer size for the git diff command'
+    default: "10000000" # the default git diff buffer size, increase if you have issues
+    required: true
 
 branding:
   icon: "lock"
@@ -59,10 +76,10 @@ runs:
       id: git-diff-action
       with:
         json_diff_file_output: ${{ inputs.json_diff_path }}
-        base_branch: HEAD^1 # compare the PR merge commit against its first parent
-        file_output_only: "true" # do not print any diff output to the console (safety first)
-        search_path: '.' # look in the entire repo for changes
-        max_buffer_size: "10000000" # the default git diff buffer size, increase if you have issues
+        base_branch: ${{ inputs.base_branch }}
+        file_output_only: ${{ inputs.file_output_only }}
+        search_path: ${{ inputs.search_path }}
+        max_buffer_size: ${{ inputs.max_buffer_size }}
 
     - name: auditor-action
       uses: GrantBirki/auditor-action-core@a5bc8211a5aeda51a3bba4baa858628d0941ad25 # pin@v3.0.0
