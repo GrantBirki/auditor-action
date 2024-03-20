@@ -4,7 +4,9 @@ author: "Grant Birkinbine"
 
 inputs:
   github_token:
-    description: 'The GitHub token used to create an authenticated client - Provided for you by default! If you are using annotations on pull requests, you may need to use a GitHub App token with checks:write permissions instead'
+    description: 'The GitHub token used to create an authenticated client - Provided
+      for you by default! If you are using annotations on pull requests, you may
+      need to use a GitHub App token with checks:write permissions instead'
     default: ${{ github.token }}
     required: true
   config:
@@ -43,7 +45,7 @@ runs:
         max_buffer_size: "10000000" # the default git diff buffer size, increase if you have issues
 
     - name: auditor-action
-      uses: GrantBirki/auditor-action-core@a2b7cb8926f827391239733a170e2473977bbbf2 # pin@v2.3.4
+      uses: GrantBirki/auditor-action-core@55ca1788ef9f8733ea289422b9541e335454e68d # pin@v2.3.5
       with:
         github_token: ${{ inputs.github_token }}
         annotate_pr: ${{ inputs.annotate_pr }}
