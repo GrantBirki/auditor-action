@@ -93,11 +93,15 @@ rules: # array of rules
       - <string>
     exclude_regex: # array of regex patterns for files to exclude from the rule (optional)
       - <string>
+    requested_reviewers: # array of requested reviewers for the rule (optional)
+      - "octocat" # a single reviewer
+      - "org/team" # a team
 
 # global configuration options
 global_options:
   alert_level: <fail|warn> # whether to fail or warn on violations - default is 'fail'
   comment_on_pr: <boolean> # whether to comment on the PR with violation results - default is true
+  request_reviewers: false # whether to request reviewers on the PR if a violation is found - default is true
   exclude_auditor_config: <boolean> # exclude the auditor config file from the audit (this file) - default is true
   labels: # array of labels to apply to the PR if a violation is found - comment out to disable (optional)
     - <string>
