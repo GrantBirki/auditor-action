@@ -72,12 +72,12 @@ runs:
   using: "composite"
   steps:
     - name: checkout
-      uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # pin@v4
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # pin@v4
       with:
         fetch-depth: 0 # needed to checkout all branches
 
     - name: git-diff-action
-      uses: GrantBirki/git-diff-action@c718f833f0735bdaae1f3ee61349e019751c5e8f # pin@v2.7.0
+      uses: GrantBirki/git-diff-action@f65a78c343ee50737aebbe653e35f3067752c7b3 # pin@v2.8.0
       id: git-diff-action
       with:
         json_diff_file_output: ${{ inputs.json_diff_path }}
@@ -87,7 +87,7 @@ runs:
         max_buffer_size: ${{ inputs.max_buffer_size }}
 
     - name: auditor-action
-      uses: GrantBirki/auditor-action-core@76d0ff385291a915760cf9240d8b10473a478c8e # pin@v3.1.1
+      uses: GrantBirki/auditor-action-core@dee2b7ea21f92370023b1cc9b6b47b58bee9960f # pin@v3.2.0
       with:
         github_token: ${{ inputs.github_token }}
         annotate_pr: ${{ inputs.annotate_pr }}
