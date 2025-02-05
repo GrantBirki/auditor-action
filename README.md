@@ -96,6 +96,7 @@ rules: # array of rules
     requested_reviewers: # array of requested reviewers for the rule (optional)
       - "octocat" # a single reviewer
       - "org/team" # a team
+    do_not_fail: true # do not fail the audit if this rule is violated, it will still leave annotations, comments, and request reviewers (optional - default is false)
 
 # global configuration options
 global_options:
@@ -144,10 +145,21 @@ rules:
     pattern: "p{100}"
     message: this should not match anything - if it did I broke
 
+  - name: "Sensitive files changed"
+    type: file-change
+    message: file-changed, this needs a review by our top engineers
+    include_regex:
+      - "^.*\\.critical_file$"
+    requested_reviewers: # array of requested reviewers for the rule (optional)
+      - "octocat"
+      - "monalisa"
+    do_not_fail: true # don't fail on this rule alone, but ensure it is annotated and reviewers are requested
+
 # global configuration options
 global_options:
   alert_level: fail # whether to fail or warn the Actions workflow if a violation is found - default is fail
   comment_on_pr: true # whether to comment on the PR with the violations found - default is true
+  request_reviewers: false # whether to request reviewers on the PR if a violation is found - default is true
   # exclude_auditor_config: false # exclude the auditor config file from the audit (this file) - default is true
   labels: # the labels to apply to the PR if a violation is found - comment out to disable
     - alert
