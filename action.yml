@@ -87,7 +87,7 @@ runs:
         max_buffer_size: ${{ inputs.max_buffer_size }}
 
     - name: auditor-action
-      uses: GrantBirki/auditor-action-core@7e0281db41591069344e80d181679a6c55b33e25 # pin@v3.3.0
+      uses: GrantBirki/auditor-action-core@615b23cdfd7a938565863678e6b31d083267b2b9 # pin@v3.3.1
       with:
         github_token: ${{ inputs.github_token }}
         annotate_pr: ${{ inputs.annotate_pr }}
