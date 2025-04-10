@@ -96,7 +96,6 @@ rules: # array of rules
     requested_reviewers: # array of requested reviewers for the rule (optional)
       - "octocat" # a single reviewer
       - "org/team" # a team
-    do_not_fail: true # do not fail the audit if this rule is violated, it will still leave annotations, comments, and request reviewers (optional - default is false)
 
 # global configuration options
 global_options:
@@ -144,16 +143,6 @@ rules:
     type: regex
     pattern: "p{100}"
     message: this should not match anything - if it did I broke
-
-  - name: "Sensitive files changed"
-    type: file-change
-    message: file-changed, this needs a review by our top engineers
-    include_regex:
-      - "^.*\\.critical_file$"
-    requested_reviewers: # array of requested reviewers for the rule (optional)
-      - "octocat"
-      - "monalisa"
-    do_not_fail: true # don't fail on this rule alone, but ensure it is annotated and reviewers are requested
 
 # global configuration options
 global_options:
