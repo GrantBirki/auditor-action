@@ -1,0 +1,46 @@
+name: acceptance
+
+cache-mode: none
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  acceptance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # pin@v4
+
+      # Compare against v4.4.2 so both PR and main runs exercise a known finding.
+      # Disable API reporting while running the actual pinned composite steps.
+      - name: default report path
+        uses: ./
+        env:
+          CI: 'false'
+        with:
+          config: test/config.yml
+          base_branch: aaff5157b28aca0fcc7b133ce846b354c81349f0 # v4.4.2
+          search_path: action.yml
+          annotate_pr: 'false'
+
+      - name: verify disabled report and cleanup
+        run: node test/verify-report.cjs disabled
+
+      - name: custom report path
+        uses: ./
+        env:
+          CI: 'false'
+        with:
+          config: test/config.yml
+          base_branch: aaff5157b28aca0fcc7b133ce846b354c81349f0 # v4.4.2
+          search_path: action.yml
+          annotate_pr: 'false'
+          write_results_path: results.md
+
+      - name: verify report contents and cleanup
+        run: node test/verify-report.cjs

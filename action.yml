@@ -87,7 +87,7 @@ runs:
         max_buffer_size: ${{ inputs.max_buffer_size }}
 
     - name: auditor-action
-      uses: GrantBirki/auditor-action-core@f49f80df26328f8a9f9990fa68e65f858b6da9b6 # pin@v3.3.2
+      uses: GrantBirki/auditor-action-core@5251c8a7a30cb2e9aefabab4f9667192b8245386 # pin@v3.3.3
       with:
         github_token: ${{ inputs.github_token }}
         annotate_pr: ${{ inputs.annotate_pr }}
@@ -98,7 +98,7 @@ runs:
         annotate_title: ${{ inputs.annotate_title }}
         annotate_summary: ${{ inputs.annotate_summary }}
         annotate_status: ${{ inputs.annotate_status }}
-        write_results_path: $ {{ inputs.write_results_path }}
+        write_results_path: ${{ inputs.write_results_path }}
 
     - name: cleanup
       env:
