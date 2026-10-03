@@ -1,0 +1,9 @@
+rules:
+  - name: core-pin
+    type: string-exact
+    pattern: 'GrantBirki/auditor-action-core@'
+    message: 'The core pin changed'
+global_options:
+  alert_level: warn
+  comment_on_pr: false
+  request_reviewers: false
